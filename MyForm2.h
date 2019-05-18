@@ -16,7 +16,7 @@ namespace Project4 {
 	using namespace System::Drawing;
 
 	/// <summary>
-	/// Сводка для MyForm2
+	/// РЎРІРѕРґРєР° РґР»СЏ MyForm2
 	/// </summary>
 	public ref class MyForm2 : public System::Windows::Forms::Form
 	{
@@ -25,13 +25,13 @@ namespace Project4 {
 		{
 			InitializeComponent();
 			//
-			//TODO: добавьте код конструктора
+			//TODO: РґРѕР±Р°РІСЊС‚Рµ РєРѕРґ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 			//
 		}
 
 	protected:
 		/// <summary>
-		/// Освободить все используемые ресурсы.
+		/// РћСЃРІРѕР±РѕРґРёС‚СЊ РІСЃРµ РёСЃРїРѕР»СЊР·СѓРµРјС‹Рµ СЂРµСЃСѓСЂСЃС‹.
 		/// </summary>
 		~MyForm2()
 		{
@@ -46,18 +46,20 @@ namespace Project4 {
 	private: System::Windows::Forms::MenuStrip^  menuStrip1;
 	private: System::Windows::Forms::ToolStripMenuItem^  infoToolStripMenuItem;
 	private: System::Windows::Forms::Button^  button2;
+
+
 	protected:
 
 	private:
 		/// <summary>
-		/// Обязательная переменная конструктора.
+		/// РћР±СЏР·Р°С‚РµР»СЊРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°.
 		/// </summary>
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// Требуемый метод для поддержки конструктора — не изменяйте 
-		/// содержимое этого метода с помощью редактора кода.
+		/// РўСЂРµР±СѓРµРјС‹Р№ РјРµС‚РѕРґ РґР»СЏ РїРѕРґРґРµСЂР¶РєРё РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° вЂ” РЅРµ РёР·РјРµРЅСЏР№С‚Рµ 
+		/// СЃРѕРґРµСЂР¶РёРјРѕРµ СЌС‚РѕРіРѕ РјРµС‚РѕРґР° СЃ РїРѕРјРѕС‰СЊСЋ СЂРµРґР°РєС‚РѕСЂР° РєРѕРґР°.
 		/// </summary>
 		void InitializeComponent(void)
 		{
@@ -141,6 +143,31 @@ namespace Project4 {
 			this->PerformLayout();
 
 		}
+		bool remove_line(const char *filename, size_t index)
+		{
+			std::vector<std::string> vec;
+			std::ifstream file(filename);
+			if (file.is_open())
+			{
+				std::string str;
+				while (std::getline(file, str))
+					vec.push_back(str);
+				file.close();
+				if (vec.size() < index)
+					return false;
+				vec.erase(vec.begin() + index);
+				std::ofstream outfile(filename);
+				if (outfile.is_open())
+				{
+					std::copy(vec.begin(), vec.end(),
+						std::ostream_iterator<std::string>(outfile, "\n"));
+					outfile.close();
+					return true;
+				}
+				return false;
+			}
+			return false;
+		}
 #pragma endregion
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 		Close();
@@ -149,29 +176,37 @@ namespace Project4 {
 		MessageBox::Show("To delete something just enter it's number and wait.");
 	}
 private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
+	int found = 0;
+	int sch = 1;
 	Basic st;
-	int n = System::Convert::ToDouble(textBox1->Text);
-	std::ifstream inFile;     
-	inFile.open("req.txt", std::ios::binary);     
-	if (!inFile) 
-	{
+	std::string g;
+	int n = System::Convert::ToInt32(textBox1->Text);
+	std::fstream File;
+	File.open("req.txt", std::ios::in | std::ios::out);
+	if (!File) {
 		MessageBox::Show("File could not be open !! Press any Key...");
-		return; 
-	}     
-	std::ofstream outFile;     
-	outFile.open("Temp.txt", std::ios::out);     
-	inFile.seekg(0, std::ios::beg);     
-	while (inFile.read((char *)&st, sizeof(Basic))) 
-	{ if (st.getNum() != n) 
-	{ 
-		outFile.write((char *)&st, sizeof(Basic)); 
-	} 
-	}     
-	outFile.close();     
-	inFile.close();     
-	remove("req.txt");     
-	rename("Temp.txt", "req.txt");     
-	MessageBox::Show("Record Deleted ..");
+		return;
+	}
+	do {
+		st.Load(sch);
+		std::ofstream out;
+		out.open("req1.txt", std::ios::app);
+		out << st.getNum() << "\n";
+		if (st.getNum() == n) {
+			MessageBox::Show("Record Deleted");
+			found = remove_line("req.txt", sch);
+			break;
+		}
+		else
+		{
+			std::getline(File, g);
+			g.clear();
+		}
+		sch++;
+	} while (!File.eof());
+	File.close();
+	if (found == 0)
+		MessageBox::Show("\n\n Record Not Found ");
 }
 };
 }
