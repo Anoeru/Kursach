@@ -9,7 +9,7 @@ Basic::Basic()
 {
 	this->func = 0;
 	this->num = 0;
-	memset(this->req, 0, 140);
+	this->req.clear();
 	this->state = 0;
 }
 void Basic::Disk()
@@ -17,58 +17,26 @@ void Basic::Disk()
 	std::ofstream out;
 	out.open("req.txt", std::ios::app);
 	out << num << " " << func << " "<<state<<" ";
-	char c=0;
-	int n = 0;
-	while ((c != '\n')&&(n<140))
+	for (int i=0;i<req.size();i++)
 	{
-		c = req[n];
-		n++;
-		out << c;
+		out << req[i];
 	}
 	out <<"\n";
 }
-void Basic::Load()
-{
+void Basic::Load(int str)
+{	
 	std::ifstream lod("req.txt");
+	for (int i = 0; i < str; i++) // пропускаем не нужные нам строки (читаем и ничего с ними не делаем)
+	{
+		std::string g;
+		std::getline(lod, g);
+		g.clear();
+	}
 	lod >> num>>func>>state;
-	lod.getline(req, 140);
-	lod.close();
-	this->num = num;
-	this->func = func;
-	this->state = state;	
+	std::getline(lod, req);
+	//lod.ignore();
+	//lod.close();
 }
-/*void Basic::getinfo()
-{
-	std::cout << "number " << num;
-	if (func == 1)
-	{
-		std::cout << " functional\n";
-	}
-	else
-	{
-		std::cout << " not functional\n";
-	}
-	unsigned int size = 100;
-	for (int i = 0; i < size; i++)
-	{
-		std::cout << name[i] << " ";
-	}
-	std::cout << " :\n";
-	size = 1000;
-	for (int i = 0; i < size; i++)
-	{
-		std::cout << req[i] << " ";
-	}
-	std::cout << "\n======================\n";
-	if (state == 1)
-	{
-		std::cout << " done\n";
-	}
-	else
-	{
-		std::cout << " not done\n";
-	}
-}*/
 int Basic::getNum()
 {
 	return num;
@@ -83,16 +51,15 @@ void Basic::setF(bool f)
 }
 void Basic::setreq(std::string &buffer)
 {
-	for (size_t idx = 0; idx < buffer.length(); idx++)
-		req[idx] = buffer[idx];
+	this->req=buffer;
 }
 void Basic::setnum(int y)
 {
 	this->num = y;
 }
-char Basic::getreq(int i)
+std::string  Basic::getreq()
 {
-	return req[i];
+	return req;
 }
 bool Basic::getFunc()
 {
