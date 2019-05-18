@@ -14,7 +14,7 @@ namespace Project4 {
 	using namespace System::Drawing;
 
 	/// <summary>
-	/// Сводка для MyForm
+	/// РЎРІРѕРґРєР° РґР»СЏ MyForm
 	/// </summary>
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
@@ -23,13 +23,13 @@ namespace Project4 {
 		{
 			InitializeComponent();
 			//
-			//TODO: добавьте код конструктора
+			//TODO: РґРѕР±Р°РІСЊС‚Рµ РєРѕРґ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 			//
 		}
 
 	protected:
 		/// <summary>
-		/// Освободить все используемые ресурсы.
+		/// РћСЃРІРѕР±РѕРґРёС‚СЊ РІСЃРµ РёСЃРїРѕР»СЊР·СѓРµРјС‹Рµ СЂРµСЃСѓСЂСЃС‹.
 		/// </summary>
 		~MyForm()
 		{
@@ -64,18 +64,19 @@ namespace Project4 {
 	private: System::Windows::Forms::NumericUpDown^  numericUpDown2;
 	private: System::Windows::Forms::Label^  label5;
 
+
 	protected:
 
 	private:
 		/// <summary>
-		/// Обязательная переменная конструктора.
+		/// РћР±СЏР·Р°С‚РµР»СЊРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°.
 		/// </summary>
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// Требуемый метод для поддержки конструктора — не изменяйте 
-		/// содержимое этого метода с помощью редактора кода.
+		/// РўСЂРµР±СѓРµРјС‹Р№ РјРµС‚РѕРґ РґР»СЏ РїРѕРґРґРµСЂР¶РєРё РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° вЂ” РЅРµ РёР·РјРµРЅСЏР№С‚Рµ 
+		/// СЃРѕРґРµСЂР¶РёРјРѕРµ СЌС‚РѕРіРѕ РјРµС‚РѕРґР° СЃ РїРѕРјРѕС‰СЊСЋ СЂРµРґР°РєС‚РѕСЂР° РєРѕРґР°.
 		/// </summary>
 		void InitializeComponent(void)
 		{
@@ -109,7 +110,7 @@ namespace Project4 {
 			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
-			this->menuStrip1->Size = System::Drawing::Size(329, 24);
+			this->menuStrip1->Size = System::Drawing::Size(300, 24);
 			this->menuStrip1->TabIndex = 2;
 			this->menuStrip1->Text = L"menuStrip1";
 			this->menuStrip1->ItemClicked += gcnew System::Windows::Forms::ToolStripItemClickedEventHandler(this, &MyForm::menuStrip1_ItemClicked);
@@ -127,19 +128,19 @@ namespace Project4 {
 			// toolStripSeparator1
 			// 
 			this->toolStripSeparator1->Name = L"toolStripSeparator1";
-			this->toolStripSeparator1->Size = System::Drawing::Size(117, 6);
+			this->toolStripSeparator1->Size = System::Drawing::Size(152, 6);
 			// 
 			// deleteToolStripMenuItem
 			// 
 			this->deleteToolStripMenuItem->Name = L"deleteToolStripMenuItem";
-			this->deleteToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->deleteToolStripMenuItem->Size = System::Drawing::Size(155, 22);
 			this->deleteToolStripMenuItem->Text = L"Delete";
 			this->deleteToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::deleteToolStripMenuItem_Click);
 			// 
 			// changeToolStripMenuItem
 			// 
 			this->changeToolStripMenuItem->Name = L"changeToolStripMenuItem";
-			this->changeToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->changeToolStripMenuItem->Size = System::Drawing::Size(155, 22);
 			this->changeToolStripMenuItem->Text = L"Change/Search";
 			this->changeToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::changeToolStripMenuItem_Click);
 			// 
@@ -159,7 +160,7 @@ namespace Project4 {
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(248, 204);
+			this->button1->Location = System::Drawing::Point(212, 204);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(67, 23);
 			this->button1->TabIndex = 0;
@@ -185,7 +186,7 @@ namespace Project4 {
 			// 
 			// button2
 			// 
-			this->button2->Location = System::Drawing::Point(175, 205);
+			this->button2->Location = System::Drawing::Point(123, 204);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(67, 22);
 			this->button2->TabIndex = 9;
@@ -245,7 +246,7 @@ namespace Project4 {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(329, 242);
+			this->ClientSize = System::Drawing::Size(300, 248);
 			this->Controls->Add(this->label5);
 			this->Controls->Add(this->numericUpDown2);
 			this->Controls->Add(this->numericUpDown1);
@@ -292,13 +293,41 @@ namespace Project4 {
 		v.setreq(s);
 		number = System::Convert::ToInt32(numericUpDown2->Text);
 		v.setF(number);
-		v.Disk();
+		Basic st;
+		int sch = 1;
+		bool tr;
+		std::string g;
+		std::ifstream inFile;
+		inFile.open("req.txt", std::ios::beg);
+		if (!inFile) {
+			MessageBox::Show("File could not be open !! Press any Key...");
+			return;
+		}
+		do
+		{
+			st.Load(sch);
+			sch++;
+			if (v.getNum() == st.getNum())
+			{
+				MessageBox::Show("Number already exists. Try again");
+				tr = 1;
+				break;
+			}
+			else
+			{
+				std::getline(inFile, g);
+				g.clear();
+			}
+		} while (!inFile.eof());
+		if (tr != 1)
+		{
+			v.Disk();
+			MessageBox::Show("Recorded");
+		}
 		textBox2->Text = " ";
 		textBox3->Text = " ";
 		numericUpDown1->Text = "0";
-		numericUpDown2->Text = "0";
-		MessageBox::Show("Recorded");
-		
+		numericUpDown2->Text = "0";		
 	}
 
 private: System::Void changeToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
